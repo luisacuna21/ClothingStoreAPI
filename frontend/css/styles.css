@@ -1,0 +1,19 @@
+main{
+  margin: 0 auto;
+  width: 30rem;
+}
+.table {
+  margin: 0 auto;
+  text-align: center;
+}
+.table thead {
+  margin: 0;
+}
+.table tbody tr td {
+  padding: 1rem;
+}
+.mainbtn {
+  margin: 0 auto;
+  width: 5rem;
+  color: red;
+}

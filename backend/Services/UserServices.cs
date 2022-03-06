@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Services;
@@ -18,7 +19,7 @@ public class UserService
 
     #region CRUD
 
-    public async Task<List<User>> GetAsync() => await _usersCollection.Find(_ => true).ToListAsync();
+    public async Task<List<User>> GetAsync() => await _usersCollection.FindAsync(new BsonDocument()).Result.ToListAsync();
     public async Task<User> GetAsync(string id) => await _usersCollection.Find(u => u.Id == id).FirstOrDefaultAsync();
     public async Task InsertAsync(User user) => await _usersCollection.InsertOneAsync(user);
     public async Task UpdateAsync(string id, User user) => await _usersCollection.ReplaceOneAsync(u => u.Id == id, user);
