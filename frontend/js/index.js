@@ -2,7 +2,11 @@ const uri = "https://localhost:7177/api/users";
 
 const tableBody = document.querySelector("#tableBody");
 
-fetch(uri)
+const usernameField = document.getElementById("username");
+const passwordField = document.getElementById("pass");
+const sendButton = document.querySelector("#sendData");
+
+fetch(uri, { mode: "cors" })
   .then((response) => response.json())
   .then((users) => {
     console.log(users);
@@ -26,4 +30,25 @@ function showData(users) {
     tr.appendChild(td2);
     tableBody.appendChild(tr);
   });
+}
+
+sendButton.addEventListener("click", () => {
+  var username = usernameField.value;
+  var password = passwordField.value;
+
+  addUser(username, password);
+});
+
+function addUser(username, password) {
+  fetch(uri, {
+    mode: "cors",
+    method: "POST",
+    body: JSON.stringify({ username: username, password: password }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    // credentials: "include",
+  })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
 }

@@ -2,6 +2,12 @@ main{
   margin: 0 auto;
   width: 30rem;
 }
+section{
+  margin: 5rem auto;
+}
+label{
+  display: block;
+}
 .table {
   margin: 0 auto;
   text-align: center;
@@ -15,5 +21,10 @@ main{
 .mainbtn {
   margin: 0 auto;
   width: 5rem;
-  color: red;
+}
+.here{
+  display: block;
+}
+.userData{
+  display: block;
 }

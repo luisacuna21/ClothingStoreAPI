@@ -1,3 +1,4 @@
+using Microsoft.Net.Http.Headers;
 using Models;
 using Services;
 
@@ -19,9 +20,23 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
     builder =>
     {
-        builder.WithOrigins("http://127.0.0.1:5500");
+        builder.WithOrigins("http://127.0.0.1:5500")
+            .WithMethods("POST")
+            .WithHeaders(HeaderNames.AccessControlAllowOrigin, HeaderNames.ContentType)
+            .AllowCredentials();
     });
 });
+
+// builder.Services.AddCors(options =>
+// {
+//     options.AddDefaultPolicy(builder =>
+//     {
+//         builder.WithOrigins("http://127.0.0.1:5500")
+//         .WithMethods("GET")
+//         .WithHeaders(HeaderNames.AccessControlAllowOrigin, HeaderNames.ContentType)
+//         .AllowCredentials();
+//     });
+// });
 
 var app = builder.Build();
 
@@ -33,8 +48,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 app.MapControllers();
-app.UseCors(MyAllowSpecificOrigins);
 
 app.Run();
